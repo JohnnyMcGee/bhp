@@ -1,7 +1,7 @@
 import socket
 
-target_host = "www.google.com"
-target_port = 80
+target_host = "0.0.0.0"
+target_port = 9998
 
 # create a socket object
 client = socket.socket(
@@ -13,7 +13,7 @@ client = socket.socket(
 client.connect((target_host, target_port))
 
 # send some data
-client.send(b"GET /HTTP/1.1\r\nHost: google.com\r\n\r\n")
+client.send(b"cowabunga, dude!")
 
 # receive some data
 response = client.recv(4096)
