@@ -60,7 +60,7 @@ class NetCat:
             client_socket, _ = self.socket.accept()
             client_thread = threading.Thread(
                 target=self.handle,
-                args=(client_socket)
+                args=[client_socket]
             )
             client_thread.start()
     
@@ -117,6 +117,7 @@ if __name__ == '__main__':
     parser.add_argument('-l', '--listen', action='store_true', help='listen')
     parser.add_argument('-p', '--port', type=int, default=5555, help='specified port')
     parser.add_argument('-t', '--target', default='192.168.1.203', help='specified IP')
+    parser.add_argument('-u', '--upload', help='upload file')
 
     args = parser.parse_args()
     if args.listen:
