@@ -1,5 +1,4 @@
 import argparse
-# import imp
 import socket
 import shlex
 import subprocess
@@ -43,10 +42,9 @@ class NetCat:
                     response += data.decode()
                     if recv_len < 4096:
                         break
-                    if response:
-                        print(response)
-                        buffer = input('> ')
-                        buffer += '\n'
+                if response:
+                    buffer = input(response)
+                    buffer += '\n'
                     self.socket.send(buffer.encode())
         except KeyboardInterrupt:
             print('User terminated.')
@@ -84,7 +82,7 @@ class NetCat:
             cmd_buffer = b''
             while True:
                 try:
-                    client_socket.send(b'BHP: #> ')
+                    client_socket.send(b'<BHP: #> ')
                     while '\n' not in cmd_buffer.decode():
                         cmd_buffer += client_socket.recv(64)
                     response = execute(cmd_buffer.decode())
