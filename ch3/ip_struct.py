@@ -22,3 +22,12 @@ class IP:
 
         # map protocol constants to their names
         self.protocol_map = {1: "ICMP", 6: "TCP", 17: "UDP"}
+
+class ICMP:
+    def __init__(self, buff=None):
+        header = struct.unpack('<BBHHH', buff)
+        self.type = header[0]
+        self.code = header[1]
+        self.sum = header[2]
+        self.id = header[3]
+        self.seq = header[4]
