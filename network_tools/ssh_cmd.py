@@ -1,4 +1,6 @@
 import paramiko
+import argparse
+
 
 def ssh_command(ip, port, user, passwd, cmd):
     client = paramiko.SSHClient()
@@ -14,10 +16,18 @@ def ssh_command(ip, port, user, passwd, cmd):
     
 if __name__ == '__main__':
     import getpass
-    user = input('Username: ')
-    password = getpass.getpass()
-    ip = input('Enter server IP: ') or '127.0.0.1'
-    port = input('Enter port or <CR>: ') or 22
-    cmd = input('Enter command or <CR>: ') or 'id'
 
-    ssh_command(ip, port, user, password, cmd)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('target', nargs="?")
+    args = parser.parse_args()
+    if not args.target:
+        print("Not enough arguments. Please try again.")
+    else:
+        user, ip = args.target.split('@')
+        # user = input('Username: ')
+        password = getpass.getpass()
+        # ip = input('Enter server IP: ') or '127.0.0.1'
+        port = input('Enter port or <CR>: ') or 22
+        cmd = input('Enter command or <CR>: ') or 'id'
+
+        ssh_command(ip, port, user, password, cmd)
