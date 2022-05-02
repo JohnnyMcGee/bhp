@@ -1,11 +1,9 @@
 import paramiko
-import argparse
 
-
-def ssh_command(ip, port, user, passwd, cmd):
+def ssh_command(ip, port, user, password, cmd):
     client = paramiko.SSHClient()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    client.connect(ip, port=port, username=user, password=passwd)
+    client.connect(ip, port=port, username=user, password=password)
     _, stdout, stderr = client.exec_command(cmd)
     output = stdout.readlines() + stderr.readlines()
 
@@ -15,19 +13,14 @@ def ssh_command(ip, port, user, passwd, cmd):
             print(line.strip())
     
 if __name__ == '__main__':
-    import getpass
+    import sys
+    from ssh_parse import ssh_parse
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument('target', nargs="?")
-    args = parser.parse_args()
-    if not args.target:
-        print("Not enough arguments. Please try again.")
-    else:
-        user, ip = args.target.split('@')
-        # user = input('Username: ')
-        password = getpass.getpass()
-        # ip = input('Enter server IP: ') or '127.0.0.1'
-        port = input('Enter port or <CR>: ') or 22
-        cmd = input('Enter command or <CR>: ') or 'id'
-
-        ssh_command(ip, port, user, password, cmd)
+    ns = ssh_parse(program_name="ssh_cmd.py", args=sys.argv[1:])
+    ssh_command(
+        ip=ns.host,
+        port=ns.port,
+        user=ns.user,
+        password=ns.password,
+        cmd=ns.command
+    )

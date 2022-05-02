@@ -1,3 +1,4 @@
 bhp/
 assets/
 .vscode/
+**/__pycache__/
