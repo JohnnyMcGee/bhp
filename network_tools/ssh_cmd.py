@@ -11,7 +11,7 @@ def ssh_command(ip, port, user, password, cmd):
         print('--- Output ---')
         for line in output:
             print(line.strip())
-    
+
 if __name__ == '__main__':
     import sys
     from ssh_parse import ssh_parse

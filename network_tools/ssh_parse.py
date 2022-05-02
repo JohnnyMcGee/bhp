@@ -27,7 +27,7 @@ def _get_parser(prog: str) -> argparse.ArgumentParser:
     parser.add_argument('-p', '--port', default=22, dest="port", help="Port to connect to on remote host")
     return parser
 
-def ssh_parse(program_name: str = "ssh.py", args: "list[str] | None" = ...) -> "argparse.Namespace | None":
+def ssh_parse(args: "list[str] | None" = ..., program_name: str = "ssh.py") -> "argparse.Namespace | None":
     '''Parse ssh command line options and prompt user for password as needed'''
     parser = _get_parser(prog=program_name)
     try:

@@ -2,8 +2,6 @@ import paramiko
 import shlex
 import subprocess
 
-from network_tools.ssh_parse import ssh_parse
-
 def ssh_command(ip, port, user, password):
     client = paramiko.SSHClient()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -30,7 +28,8 @@ def ssh_command(ip, port, user, password):
 if __name__ == '__main__':
     import sys
     from ssh_parse import ssh_parse
-    ns = ssh_parse(sys.argv[1:])
+
+    ns = ssh_parse(sys.argv[1:], program_name="Reverse SSH client")
     ssh_command(
         ip=ns.host,
         port=ns.port,
