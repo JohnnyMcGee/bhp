@@ -32,7 +32,7 @@ def ssh_parse(program_name: str = "ssh.py", args: "list[str] | None" = ...) -> "
     parser = _get_parser(prog=program_name)
     try:
         ns = parser.parse_args(args=args)
-        password = getpass.getpass()
+        password = getpass.getpass(prompt=f"enter password for {ns.user}: ")
         setattr(ns, "password", password)
         return ns
 
