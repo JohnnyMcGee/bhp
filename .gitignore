@@ -2,3 +2,4 @@ bhp/
 assets/
 .vscode/
 **/__pycache__/
+**/test_rsa.key
