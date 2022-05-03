@@ -23,7 +23,7 @@ class Server(paramiko.ServerInterface):
             return paramiko.AUTH_SUCCESSFUL
     
 if __name__ == '__main__':
-    server = '192.168.1.207'
+    server = '0.0.0.0'
     ssh_port = 2222
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -38,7 +38,6 @@ if __name__ == '__main__':
         bhSession.add_server_key(HOSTKEY)
         server = Server()
         bhSession.start_server(server=server)
-
         chan=bhSession.accept(20)
         if chan is None:
             print('*** No channel.')
@@ -52,8 +51,8 @@ if __name__ == '__main__':
                 command = input("Enter command: ")
                 if command != "exit":
                     chan.send(command)
-                    r = chan.recv(8192)
-                    print(r.decode())
+                    res = chan.recv(8192)
+                    print(res.decode())
                 else:
                     chan.send("exit")
                     print("exiting")
